@@ -1,4 +1,4 @@
-name: Build SkyList APK
+name: Build SkyList
 
 on:
   push:
@@ -15,21 +15,33 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup JDK 17
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
           cache: gradle
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - name: Build AAB
+        run: ./gradlew bundleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: SkyList-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: SkyList-AAB
+          path: app/build/outputs/bundle/debug/app-debug.aab
