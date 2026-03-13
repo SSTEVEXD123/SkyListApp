@@ -3,8 +3,10 @@ workflows:
     name: Build SkyList Debug APK
     max_build_duration: 60
     environment:
-      vars:
-        JAVA_HOME: /opt/android/java/openjdk-17
+      image: ubuntu-22.04
+      node: false
+      flutter: false
+      java: openjdk17
     scripts:
       - name: Grant gradlew permission
         script: chmod +x ./gradlew
