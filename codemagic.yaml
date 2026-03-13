@@ -5,7 +5,6 @@ workflows:
     environment:
       vars:
         JAVA_HOME: /opt/android/java/openjdk-17
-      flutter: false
     scripts:
       - name: Grant gradlew permission
         script: chmod +x ./gradlew
